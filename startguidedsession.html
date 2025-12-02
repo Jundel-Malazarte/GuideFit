@@ -1,31 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>startguidedsession</title>
-    <link rel="stylesheet" href="css/styless.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Start your guided workout session with GuideFit — Real-time form guidance and safety cues.">
+    <title>Start Guided Session — Safe Workout App</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .session-hero {
+            min-height: 50vh;
+            padding: 60px 0;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
 
+        .session-hero-content {
+            flex: 1;
+        }
+
+        .session-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            margin: 0 0 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .session-hero .lead {
+            color: #e6eef8;
+            opacity: 0.95;
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+        }
+
+        .prep-checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .checklist-item {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            border-radius: 14px;
+            backdrop-filter: blur(6px);
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.20);
+            transform: translateY(-4px);
+        }
+
+        .checklist-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .checklist-item h3 {
+            font-size: 1.1rem;
+            margin: 0 0 10px;
+            font-weight: 600;
+        }
+
+        .checklist-item p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .session-actions {
+            margin-top: 60px;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, rgba(255, 77, 79, 0.08), rgba(255, 122, 89, 0.08));
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .session-actions h2 {
+            font-size: 1.6rem;
+            margin: 0 0 16px;
+        }
+
+        .session-actions p {
+            color: #e6eef8;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-start {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(255, 77, 79, 0.14);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(255, 77, 79, 0.24);
+        }
+
+        .btn-settings {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .btn-settings:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.20);
+        }
+
+        .btn-exit {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .btn-exit:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.20);
+        }
+
+        @media (max-width: 900px) {
+            .session-hero {
+                padding: 40px 0;
+            }
+
+            .session-hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .prep-checklist {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-action {
+                width: 100%;
+            }
+
+            .session-actions {
+                padding: 40px 24px;
+            }
+
+            .session-actions h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
 </head>
-<body class="body">
-    <h1>Start Your Guided Session</h1>
-    <p>Welcome to your first guided workout session with GuideFit!<br> Follow the steps below to ensure a safe and effective workout experience:</p>
-    <ol>
-        <li><strong>Prepare Your Space:</strong> Find a safe, open area free of <br>obstacles to perform your exercises.</li>
-        <li><strong>Warm-Up:</strong> Begin with the recommended warm-up<br> routine to prepare your body for exercise.</li>
-        <li><strong>Follow the Guidance:</strong> Listen to audio cues and watch<br> visual prompts to maintain proper form throughout your workout.</li>
-        <li><strong>Stay Hydrated:</strong> Keep water nearby and take breaks<br> as needed to stay hydrated.</li>
-        <li><strong>Cool Down:</strong> After completing your workout, follow<br> the cooldown routine to help your body recover.</li>
-        <li><strong>Provide Feedback:</strong> After your session, consider<br> providing feedback to help us improve your experience.</li>
-    </ol>
-    <div class="menu">
-        <div class="option">
-            <a href="guidedworkout.html">start</a>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="index.html">Guide<span class="accent">Fit</span></a>
+            <nav class="nav">
+                <a href="index.html#features">Features</a>
+                <a href="tips.html">Tips</a>
+                <a class="btn small" href="getstarted.html">Get Started</a>
+            </nav>
         </div>
-            <div class="option">Settingg</div>
-                <div class="option">
-                    <a href="index.html">Exit</a>
-     </div>
-</div>
+    </header>
+
+    <main>
+        <section class="session-hero">
+            <div class="container session-hero-content">
+                <h1>Start Your Guided Session</h1>
+                <p class="lead">Welcome to your guided workout session with GuideFit! Prepare yourself with this pre-session checklist and begin your safe, effective workout experience.</p>
+
+                <div class="prep-checklist">
+                    <div class="checklist-item">
+                        <div class="checklist-icon">🏠</div>
+                        <h3>Prepare Your Space</h3>
+                        <p>Find a safe, open area free of obstacles to perform your exercises.</p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checklist-icon">🔥</div>
+                        <h3>Warm-Up</h3>
+                        <p>Begin with the recommended warm-up routine to prepare your body for exercise.</p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checklist-icon">👂</div>
+                        <h3>Follow the Guidance</h3>
+                        <p>Listen to audio cues and watch visual prompts to maintain proper form.</p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checklist-icon">💧</div>
+                        <h3>Stay Hydrated</h3>
+                        <p>Keep water nearby and take breaks as needed to stay hydrated.</p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checklist-icon">🧘</div>
+                        <h3>Cool Down</h3>
+                        <p>After your workout, follow the cooldown routine to help your body recover.</p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checklist-icon">📋</div>
+                        <h3>Provide Feedback</h3>
+                        <p>After your session, share feedback to help us improve your experience.</p>
+                    </div>
+                </div>
+
+                <div class="session-actions">
+                    <h2>Ready to Begin Your Workout?</h2>
+                    <p>You're all set to start! Select an option below to proceed.</p>
+                    <div class="action-buttons">
+                        <a href="./guidedworkout.html" class="btn-action btn-start">▶ Start Workout</a>
+                        <a href="./settings.html" class="btn-action btn-settings" ">⚙️ Settings</a>
+                        <a href="./index.html" class="btn-action btn-exit">← Back Home</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>&copy; <span id="year"></span> GuideFit — Built for safe training.</p>
+            <p class="small">Images and tips are for guidance only. Consult a professional for medical advice.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>

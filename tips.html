@@ -1,27 +1,256 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/stylesss.css">
-    </head>
-    <body class="body">
-        <ol>
-        1. Start with a warm-up to prepare your muscles and prevent injuries.<br>
-        2. Focus on proper form rather than lifting heavier weights to avoid strain.<br>
-        3. Stay consistent by following a realistic workout schedule you can maintain.<br>
-        4. Mix different exercises—strength, cardio, and flexibility—to balance your fitness.<br>
-        5. Give your body enough rest and sleep so your muscles can recover and grow.<br>
-        6. Stay hydrated before, during, and after your workouts to maintain performance.<br>
-        7. Listen to your body and adjust your workouts if you feel pain or excessive fatigue.<br>
-        8. Incorporate cooldown stretches to improve flexibility and reduce muscle soreness.<br>
-        9. Set achievable goals to stay motivated and track your progress over time.<br>
-        10. Consult a fitness professional if you're unsure about techniques or need personalized advice.<br>
-        </ol>
-    <p>You Read the Tips Want to Start?<a href="index.html">Return to the homepage</a> and begin your first guided session!</p>
-         
-    </body>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Essential fitness tips and best practices for safe and effective workouts.">
+    <title>Fitness Tips — Safe Workout App</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .tips-hero {
+            min-height: 50vh;
+            padding: 60px 0;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .tips-hero-content {
+            flex: 1;
+        }
+
+        .tips-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            margin: 0 0 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .tips-hero .lead {
+            color: #e6eef8;
+            opacity: 0.95;
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 28px;
+            border-radius: 14px;
+            backdrop-filter: blur(6px);
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tip-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.20);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .tip-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .tip-card h3 {
+            font-size: 1.15rem;
+            margin: 0 0 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .tip-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .tips-cta {
+            margin-top: 60px;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, rgba(255, 77, 79, 0.08), rgba(255, 122, 89, 0.08));
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .tips-cta h2 {
+            font-size: 1.6rem;
+            margin: 0 0 16px;
+        }
+
+        .tips-cta p {
+            color: #e6eef8;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+        }
+
+        .tips-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .tips-hero {
+                padding: 40px 0;
+            }
+
+            .tips-hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tips-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .tips-cta {
+                padding: 40px 24px;
+            }
+
+            .tips-cta h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="index.html">Guide<span class="accent">Fit</span></a>
+            <nav class="nav">
+                <a href="index.html#features">Features</a>
+                <a href="tips.html">Tips</a>
+                <a class="btn small" href="getstarted.html">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tips-hero">
+            <div class="container tips-hero-content">
+                <h1>Fitness Tips & Best Practices</h1>
+                <p class="lead">Master these essential tips to optimize your workouts, prevent injuries, and achieve your fitness goals safely and effectively.</p>
+
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-number">1</div>
+                        <h3>Warm-Up First</h3>
+                        <p>Start with a warm-up to prepare your muscles and prevent injuries. A proper warm-up increases blood flow and prepares your body for exercise.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">2</div>
+                        <h3>Prioritize Form</h3>
+                        <p>Focus on proper form rather than lifting heavier weights to avoid strain. Good technique prevents injuries and maximizes effectiveness.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">3</div>
+                        <h3>Stay Consistent</h3>
+                        <p>Stay consistent by following a realistic workout schedule you can maintain. Consistency beats intensity when building long-term fitness.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">4</div>
+                        <h3>Mix It Up</h3>
+                        <p>Mix different exercises—strength, cardio, and flexibility—to balance your fitness. Variety keeps workouts interesting and works all muscle groups.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">5</div>
+                        <h3>Rest & Recovery</h3>
+                        <p>Give your body enough rest and sleep so your muscles can recover and grow. Recovery is when your body actually gets stronger.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">6</div>
+                        <h3>Stay Hydrated</h3>
+                        <p>Stay hydrated before, during, and after your workouts to maintain performance. Proper hydration improves endurance and recovery.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">7</div>
+                        <h3>Listen to Your Body</h3>
+                        <p>Listen to your body and adjust your workouts if you feel pain or excessive fatigue. Pain is a signal—don't push through injury.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">8</div>
+                        <h3>Cool Down Properly</h3>
+                        <p>Incorporate cooldown stretches to improve flexibility and reduce muscle soreness. A good cooldown aids recovery and mobility.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">9</div>
+                        <h3>Set Goals</h3>
+                        <p>Set achievable goals to stay motivated and track your progress over time. Clear goals keep you focused and accountable.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-number">10</div>
+                        <h3>Seek Professional Help</h3>
+                        <p>Consult a fitness professional if you're unsure about techniques or need personalized advice. Expert guidance prevents mistakes.</p>
+                    </div>
+                </div>
+
+                <div class="tips-cta">
+                    <h2>Ready to Apply These Tips?</h2>
+                    <p>Start your guided workout session and implement these best practices for maximum results.</p>
+                    <div class="tips-actions">
+                        <a href="startguidedsession.html" class="btn primary">Start Guided Session</a>
+                        <a href="index.html" class="btn ghost">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>&copy; <span id="year"></span> GuideFit — Built for safe training.</p>
+            <p class="small">Images and tips are for guidance only. Consult a professional for medical advice.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
 </html>
