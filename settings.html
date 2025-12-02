@@ -1,11 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Customize your GuideFit experience with personalized settings and preferences.">
+    <title>Settings — Safe Workout App</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .settings-container {
+            min-height: 70vh;
+            padding: 60px 0;
+        }
+
+        .settings-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .settings-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin: 0 0 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .settings-header p {
+            color: #e6eef8;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .settings-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .settings-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .settings-tab {
+            padding: 14px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e6eef8;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .settings-tab:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .settings-tab.active {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .settings-panel {
+            display: none;
+        }
+
+        .settings-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .settings-section {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 32px;
+            border-radius: 14px;
+            backdrop-filter: blur(6px);
+        }
+
+        .settings-section h2 {
+            font-size: 1.3rem;
+            margin: 0 0 24px;
+            font-weight: 600;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .setting-item:first-child {
+            padding-top: 0;
+        }
+
+        .setting-label {
+            flex: 1;
+        }
+
+        .setting-label h3 {
+            margin: 0 0 6px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .setting-label p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .setting-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toggle-switch.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            left: 24px;
+        }
+
+        /* Select Dropdown */
+        .select-control {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            cursor: pointer;
+            min-width: 180px;
+        }
+
+        .select-control:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.20);
+        }
+
+        .select-control option {
+            background: #0a0e1a;
+            color: #fff;
+        }
+
+        /* Input Field */
+        .input-control {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            min-width: 200px;
+        }
+
+        .input-control:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--accent);
+        }
+
+        .input-control::placeholder {
+            color: var(--muted);
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .btn-save {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 77, 79, 0.2);
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            padding: 12px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.20);
+        }
+
+        @media (max-width: 900px) {
+            .settings-container {
+                padding: 40px 0;
+            }
+
+            .settings-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .settings-content {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .settings-tab {
+                flex: 1;
+                min-width: 140px;
+            }
+
+            .settings-section {
+                padding: 24px;
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .setting-control {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .select-control,
+            .input-control {
+                width: 100%;
+            }
+
+            .settings-actions {
+                flex-direction: column;
+            }
+
+            .btn-save,
+            .btn-reset {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Settings</h2>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="index.html">Guide<span class="accent">Fit</span></a>
+            <nav class="nav">
+                <a href="index.html#features">Features</a>
+                <a href="tips.html">Tips</a>
+                <a class="btn small" href="getstarted.html">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="settings-container">
+            <div class="container">
+                <div class="settings-header">
+                    <h1>Settings</h1>
+                    <p>Customize your GuideFit experience and preferences</p>
+                </div>
+
+                <div class="settings-content">
+                    <!-- Settings Sidebar -->
+                    <div class="settings-sidebar">
+                        <button class="settings-tab active" onclick="switchTab('profile')">👤 Profile</button>
+                        <button class="settings-tab" onclick="switchTab('fitness')">💪 Fitness Goals</button>
+                        <button class="settings-tab" onclick="switchTab('notifications')">🔔 Notifications</button>
+                        <button class="settings-tab" onclick="switchTab('preferences')">⚙️ Preferences</button>
+                        <button class="settings-tab" onclick="switchTab('privacy')">🔒 Privacy</button>
+                    </div>
+
+                    <!-- Settings Panels -->
+                    <div class="settings-panels">
+                        <!-- Profile Settings -->
+                        <div id="profile" class="settings-panel active">
+                            <div class="settings-section">
+                                <h2>Profile Settings</h2>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Full Name</h3>
+                                        <p>Your display name on GuideFit</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="text" class="input-control" placeholder="Enter your name" value="Kenneth Amarila ">
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Email Address</h3>
+                                        <p>Your account email</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="email" class="input-control" placeholder="your@email.com" value="kenneth@example.com">
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Age</h3>
+                                        <p>Used to personalize recommendations</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="number" class="input-control" placeholder="Age" value="20" min="13" max="120">
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Location</h3>
+                                        <p>Your city and country</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="text" class="input-control" placeholder="City, Country" value="Cebu City, Phillipines">
+                                    </div>
+                                </div>
+
+                                <div class="settings-actions">
+                                    <button class="btn-save">💾 Save Changes</button>
+                                    <button class="btn-reset">↺ Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fitness Goals -->
+                        <div id="fitness" class="settings-panel">
+                            <div class="settings-section">
+                                <h2>Fitness Goals</h2>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Primary Goal</h3>
+                                        <p>What's your main fitness objective?</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="select-control">
+                                            <option>Weight Loss</option>
+                                            <option>Muscle Gain</option>
+                                            <option>Endurance</option>
+                                            <option>Flexibility</option>
+                                            <option>Overall Health</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Fitness Level</h3>
+                                        <p>Your current experience level</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="select-control">
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Workouts Per Week</h3>
+                                        <p>How many times you plan to exercise</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="select-control">
+                                            <option>1-2 times</option>
+                                            <option>3-4 times</option>
+                                            <option>5-6 times</option>
+                                            <option>7 times (Daily)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Target Duration</h3>
+                                        <p>Preferred workout length in minutes</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="select-control">
+                                            <option>15-20 minutes</option>
+                                            <option>20-30 minutes</option>
+                                            <option>30-45 minutes</option>
+                                            <option>45-60 minutes</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="settings-actions">
+                                    <button class="btn-save">💾 Save Goals</button>
+                                    <button class="btn-reset">↺ Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notifications -->
+                        <div id="notifications" class="settings-panel">
+                            <div class="settings-section">
+                                <h2>Notification Settings</h2>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Workout Reminders</h3>
+                                        <p>Get reminded when it's time to exercise</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Achievement Alerts</h3>
+                                        <p>Celebrate your fitness milestones</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Tips & Updates</h3>
+                                        <p>Receive fitness tips and app updates</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Email Notifications</h3>
+                                        <p>Receive notifications via email</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-actions">
+                                    <button class="btn-save">💾 Save Preferences</button>
+                                    <button class="btn-reset">↺ Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferences -->
+                        <div id="preferences" class="settings-panel">
+                            <div class="settings-section">
+                                <h2>App Preferences</h2>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Theme</h3>
+                                        <p>Choose your preferred appearance</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="select-control">
+                                            <option>Dark Mode</option>
+                                            <option>Light Mode</option>
+                                            <option>Auto (System)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Language</h3>
+                                        <p>Your preferred language</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="select-control">
+                                            <option>English</option>
+                                            <option>Tagalog</option>
+                                            <option>Cebuano</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Units</h3>
+                                        <p>Measurement units for your workouts</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="select-control">
+                                            <option>Metric (kg, km)</option>
+                                            <option>Imperial (lbs, mi)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Audio Cues</h3>
+                                        <p>Enable audio guidance during workouts</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-actions">
+                                    <button class="btn-save">💾 Save Preferences</button>
+                                    <button class="btn-reset">↺ Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Privacy -->
+                        <div id="privacy" class="settings-panel">
+                            <div class="settings-section">
+                                <h2>Privacy & Security</h2>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Data Collection</h3>
+                                        <p>Allow GuideFit to collect workout data</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Share Progress</h3>
+                                        <p>Let friends see your progress</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Analytics</h3>
+                                        <p>Help us improve with usage analytics</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <h3>Marketing Communications</h3>
+                                        <p>Receive promotional offers and news</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-actions">
+                                    <button class="btn-save">💾 Save Settings</button>
+                                    <button class="btn-reset">↺ Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>&copy; <span id="year"></span> GuideFit — Built for safe training.</p>
+            <p class="small">Images and tips are for guidance only. Consult a professional for medical advice.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function switchTab(tabName) {
+            // Hide all panels
+            const panels = document.querySelectorAll('.settings-panel');
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.settings-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected panel
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
