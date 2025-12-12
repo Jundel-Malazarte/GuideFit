@@ -92,6 +92,6 @@ GuideFit is open source and free to use and modify. No commercial use without pe
 
 **Built with ❤️ for safe, effective training.**
 
-HTML, CSS & JavaScript Made by [Jundel Malazarte](https://github.com/jundel-malazarte)
+HTML, CSS & JavaScript Made by [Jundel Malazarte](https://github.com/jundel-malazarte) & [Kenneth Amarila](https://github.com/codebykenneth)
 
 For questions or suggestions, feel free to reach out or open an issue in the repository.
